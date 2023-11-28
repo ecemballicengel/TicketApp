@@ -132,19 +132,22 @@ namespace TicketApp
                 {
                     Console.WriteLine($"Biletiniz \nIsim: {ticket.CustomerName} \nGuzergah: {ticket.RouteName} \nUcret: {ticket.Price}");
                 }
-
-                Console.Write("Bileti iptal edilecek kullanicinin adini giriniz: ");
-                string ticketOwnerName = Console.ReadLine();
-
-                int indexToRemove = TicketList.FindIndex(ticket => ticket.CustomerName == ticketOwnerName);
-                if (indexToRemove != -1)
+            }
+            else
+            {
+                Console.WriteLine("Gosterilecek bilet bulunmamaktadir");
+            }
+            Console.WriteLine("Bileti iptal edilecek kullanicinin adini giriniz: ");
+            string ticketOwnerName = Console.ReadLine();
+            if (TicketList.Count > 0)
+            {
+                foreach (var ticket in TicketList.ToList())
                 {
-                    TicketList.RemoveAt(indexToRemove);
-                    Console.WriteLine("Bilet iptal edildi.");
-                }
-                else
-                {
-                    Console.WriteLine("Girilen isimde bilet bulunamadi.");
+                    if (ticket.CustomerName == ticketOwnerName)
+                    {
+                        TicketList.Remove(ticket);
+                        Console.WriteLine("Bilet iptal edildi.");
+                    }
                 }
             }
             else
